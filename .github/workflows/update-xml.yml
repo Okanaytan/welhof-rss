@@ -1,0 +1,25 @@
+name: Update XML File
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Schedule to run every day at midnight UTC
+
+jobs:
+  update-xml:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Run Node.js Script
+      run: |
+        npm install
+        node modify-xml.js
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
